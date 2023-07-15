@@ -18,8 +18,12 @@ function inputHandler(evt) {
   localStorage.setItem(INPUT_KEY, JSON.stringify(dataObj));
 }
 
-email.value = JSON.parse(localStorage.getItem(INPUT_KEY)).email || '';
-message.value = JSON.parse(localStorage.getItem(INPUT_KEY)).message || '';
+let feedbackFormState = JSON.parse(
+  localStorage.getItem('feedback-form-state')
+) || { email: '', message: '' };
+
+email.value = feedbackFormState.email;
+message.value = feedbackFormState.message;
 
 formRef.addEventListener('submit', evt => {
   evt.preventDefault();
