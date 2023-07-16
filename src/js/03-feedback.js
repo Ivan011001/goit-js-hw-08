@@ -34,7 +34,7 @@ function submitHandler(evt) {
     return alert('Fiil all the gaps in!');
   }
 
-  console.log(dataObj);
+  console.log(JSON.parse(localStorage.getItem(INPUT_KEY)));
 
   localStorage.removeItem(INPUT_KEY);
 
