@@ -7,13 +7,13 @@ const {
   elements: { email, message },
 } = formRef;
 
+const dataObj = {};
+
 formRef.addEventListener('input', throttle(inputHandler, 500));
 
 function inputHandler(evt) {
-  const dataObj = {
-    email: email.value,
-    message: message.value,
-  };
+  dataObj.email = email.value;
+  dataObj.message = message.value;
 
   localStorage.setItem(INPUT_KEY, JSON.stringify(dataObj));
 }
@@ -25,10 +25,18 @@ let feedbackFormState = JSON.parse(
 email.value = feedbackFormState.email;
 message.value = feedbackFormState.message;
 
-formRef.addEventListener('submit', evt => {
+formRef.addEventListener('submit', submitHandler);
+
+function submitHandler(evt) {
   evt.preventDefault();
+
+  if (!email.value || !message.value) {
+    return alert('Fiil all the gaps in!');
+  }
+
+  console.log(dataObj);
 
   localStorage.removeItem(INPUT_KEY);
 
   evt.currentTarget.reset();
-});
+}
